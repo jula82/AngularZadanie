@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+<script src="scripts/app.js"></script>
+<link rel="stylesheet" href="css/app.css">
+<body>
+    <div ng-app="myApp" ng-controller="myController">
+      <p id="value">WARTOŚĆ</p>
+
+      <table  frame="below" rules="rows" ng-model="taxTable">
+
+        <thead id="headTable">
+          <th>#</th>
+          <th id="plus" ng-click = "addtoList()"></th>
+          <th>Wartość netto</th>
+          <th>Stawka VAT</th>
+          <th>Wartość VAT</th>
+          <th>Wartość brutto</th>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="x in taxTable">
+              <th>{{ $index + 1}}.</th>
+              <th class="minus" ng-click = "removeData(x)">-</th>
+              <th> <input name="netto" type="number" step="0.01" ng-blur="x.netto=countValues(x)" ng-click="x.netto=check(x.netto)" ng-model="x.netto" /></th>
+              <th> <select class="sel" ng-blur="countValues(x)" name="vat_rate" ng-model="x.vat_rate">
+                <option ng-repeat="y in vat_rate">{{y}}</option>
+              </select></th>
+              <th> <input ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" name ="x.vat_value" type="number" ng-model="x.vat_value" step="0.01" ng-blur="countValues(x)" ng-click="x.vat_value=check(x.vat_value)" ng-init="x.vat_value=0"  /></th>
+              <th> <input type = "number" step="0.01" ng-blur="countValues(x)" ng-click="x.brutto=check(x.brutto)" ng-model="x.brutto"/>
+            </tr>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <th></th>
+            <th></th>
+            <th> {{getTotal('netto') | number: 2 | myFormat }} PLN</th>
+            <th></th>
+            <th>{{getTotal('vat_value') | number : 2 | myFormat }} PLN</th>
+            <th>{{getTotal('brutto') | number: 2 | myFormat }} PLN</th>
+          </tr>
+        </tfoot>
+
+      </table>
+    </div>
+
+</body>
+</html>
