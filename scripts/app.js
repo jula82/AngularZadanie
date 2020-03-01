@@ -4,7 +4,7 @@ var myApp = angular
                 $scope.vat_rate=[0,7,23];
                 var taxTable = [ {
                   netto: 0,
-                  vat_rate: "0",
+                  vat_rate: "23",
                   vat_value: 0,
                   brutto: 0,
                 },
@@ -15,7 +15,7 @@ var myApp = angular
                 $scope.addtoList = function($scope){
                       var data = {
                         netto: 0,
-                        vat_rate: "0",
+                        vat_rate: "23",
                         vat_value: 0,
                         brutto: 0,
                       };
